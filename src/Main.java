@@ -1,47 +1,63 @@
+import java.util.function.Supplier;
+
 public class Main {
     public static void main(String[] args) {
 
-        double[] doubleArray = new double[10];
+        double[] doubleArray = createArray(10);
 
-        for (int c = 0; c < doubleArray.length; c++){
-            doubleArray[c] = Math.random();
-        }
         sortArray(doubleArray);
+
     }
+
+
+
 
     public static void sortArray(double[] doubleArray){
 
         System.out.println(printArray(doubleArray));
-        double[] sortedDoubles = new double[10];
-
-        for (int c = 0; c < sortedDoubles.length; c++){
-
-            sortedDoubles[c] = 0;
-        }
 
         double highestNumber;
+        int index;
 
         for (int c = 0; c < doubleArray.length ; c++){
 
-            highestNumber =  0;
+            highestNumber =  1;
+            index = 0;
 
-            for (int r = 0; r < doubleArray.length; r++){
+            for (int r = c; r < doubleArray.length; r++){
 
-                if (c > 0){
-                    if (doubleArray[r] > highestNumber && doubleArray[r] < sortedDoubles[Math.max(c-1, 0)]){
-                        highestNumber = doubleArray[r];
-                    }
+                if (doubleArray[r] < highestNumber){
+
+
+                    highestNumber = doubleArray[r];
+                    index = r;
                 }
-                else {
-                    if (doubleArray[r] > highestNumber){
-                        highestNumber = doubleArray[r];
-                    }
+
+                if (r == doubleArray.length-1){
+
+                    doubleArray[index] = doubleArray[c];
+                    doubleArray[c] = highestNumber;
+
                 }
             }
-            sortedDoubles[c] = highestNumber;
         }
-        System.out.println(printArray(sortedDoubles));
+        System.out.println(printArray(doubleArray));
     }
+
+
+    public static double[] createArray(int length){
+
+
+        double[] doubleArray = new double[length];
+
+        for (int c = 0; c < doubleArray.length; c++){
+            doubleArray[c] = Math.random();
+        }
+
+        return doubleArray;
+
+    }
+
 
     public static String printArray(double[] doubles){
 
